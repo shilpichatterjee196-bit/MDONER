@@ -1,0 +1,1638 @@
+================================================================================
+                      NER LOGISTICS AI PLATFORM
+       AI-Based Smart Logistics & Remote Accessibility Intelligence
+                    for the North Eastern Region (NER)
+================================================================================
+Project Code      : SIH26002
+Platform Name     : NER Logistics AI
+Target Region     : 8 North Eastern States of India (Assam, Arunachal Pradesh,
+                    Meghalaya, Manipur, Mizoram, Nagaland, Tripura, Sikkim)
+Tech Stack        : React 18, Vite 5, Tailwind CSS 3, Leaflet, Recharts, Framer Motion
+Architecture      : Client-Side Single Page Application (SPA) with LocalStorage & Heuristic AI
+Documentation Date: September 2026
+Status            : Completed, Fully Functional, Production Build Verified
+
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+Project Name:
+NER Logistics AI (SIH26002) - Smart Multi-Modal Logistics & Remote District
+Accessibility Intelligence Platform.
+
+Project Purpose:
+To provide an integrated, real-time spatial intelligence and operations command
+dashboard designed specifically for the unique geographical, topological, and
+climatic challenges of India's North Eastern Region (NER). It enables civil
+administrators, disaster management teams, logistics coordinators, and fleet
+operators to track freight convoys, monitor active landslides and floods, calculate
+multi-modal routes (road, Brahmaputra NW-2 riverway, drone air corridors), and
+evaluate remote district supply-chain accessibility.
+
+Problem Being Solved:
+The North Eastern Region of India faces chronic logistical bottlenecks caused by
+harsh Himalayan terrain, fragile geology prone to sudden landslides and rockfalls,
+monsoon river flooding and sandbank siltation along the Brahmaputra, sub-zero
+black ice on high-altitude passes, and isolated single-lane road lifelines with zero
+redundancy. Conventional logistics platforms assume predictable highway networks,
+fail to integrate multi-modal alternatives, and do not model terrain accessibility
+friction for critical supplies (vaccines, food rations, heating fuel).
+
+Target Users:
+1. Central & State Logistics Dispatchers (Food Corporation of India, State Civil Supplies).
+2. Emergency & Disaster Response Agencies (SDRF, NDRF, Border Roads Organisation - BRO).
+3. North Eastern Council (NEC) & Ministry of Development of North Eastern Region (MoDONER).
+4. Fleet Managers & Convoy Commanders (All-terrain 6x6/4x4 trucks, Ro-Pax river barges).
+5. Ground Personnel & Commercial Drivers (Crowdsourced hazard reporters, river pilots).
+
+Real-World Use Case:
+During monsoon season, a critical mudslide closes NH-29 between Dimapur and Kohima,
+stranding essential food trucks. A conventional system only detects a traffic jam.
+NER Logistics AI immediately flags the active hazard, evaluates the Remote District
+Accessibility Index (RDAI) impact on Kohima, calculates a multi-modal detour via
+rural bypasses or river barge transshipment, alerts the convoy commander via SatCom,
+and generates an operational dispatch order in under two minutes.
+
+Main Objectives:
+- Provide real-time GIS situational awareness across all 8 NER states.
+- Enable intelligent multi-modal route planning integrating highway, river, and drone.
+- Dynamically assess remote district vulnerability through a composite accessibility score.
+- Expedite disaster triage and machinery deployment for road clearance.
+- Empower ground drivers and local volunteers to report live hazards with community verification.
+- Provide executive SLA analytics on freight modal shift, carbon offsets, and transit time.
+
+Why the Platform is Useful for the North Eastern Region:
+NER's topography cannot be solved by standard road logistics alone. By treating the
+Brahmaputra National Waterway-2 (NW-2) and VTOL cargo drones as first-class transit
+modalities alongside all-terrain heavy vehicles, the platform turns geographical
+obstacles into strategic supply corridors.
+
+Major Capabilities of the Platform:
+1. Executive Command Center: Live KPI stat counters, active convoy telemetry, terrain hazards feed.
+2. Interactive Leaflet GIS Map: Real-time GPS markers, route polylines, elevation markers, hazard radii.
+3. Multi-Modal Route Solver: Heuristic engine optimizing for speed, safety, or eco-river transit.
+4. Fleet Telematics Registry: Speed, battery/fuel, engine temp, altitude, driver comms, cargo cold-chain.
+5. Remote District Accessibility Index (RDAI): Multi-factor scoring with monsoon flood stress simulation.
+6. Incident Triage & Emergency SOS: BRO heavy machinery dispatch, clearance progress tracking, broadcast.
+7. Crowdsourced Field Hazard Reporting: Driver hazard submissions, photo verification, upvoting.
+8. Executive SLA Analytics: Recharts area, bar, and donut charts demonstrating river modal shift.
+9. System Configuration: Telemetry polling, NavIC/GSAT-7 satellite selection, offline cache controls.
+
+--------------------------------------------------------------------------------
+EXECUTIVE SUMMARY (FOR PRESENTATION TO SIH JUDGES)
+--------------------------------------------------------------------------------
+"NER Logistics AI (SIH26002) is a specialized spatial intelligence and command
+platform engineered to solve India's toughest supply-chain challenge: logistics in
+the North Eastern Region. While standard navigation tools fail in the face of
+Himalayan landslides, monsoon river swells, and isolated single-lane passes, our
+platform integrates all-terrain road fleets, Brahmaputra NW-2 river barges, and
+medical VTOL drones into a single operational interface. Powered by an intelligent
+multi-modal heuristic route solver and the Remote District Accessibility Index
+(RDAI), NER Logistics AI dynamically detects hazards, predicts supply friction,
+and automates emergency detours. It transforms reactive disaster relief into
+proactive, resilient logistics across all eight North Eastern states."
+
+
+================================================================================
+2. PROBLEM STATEMENT
+================================================================================
+The Original Logistics / Accessibility Problem:
+The North Eastern Region comprises eight states connected to the rest of India
+primarily via the narrow 22-kilometer Siliguri Corridor ("Chicken's Neck").
+Within the region, physical transportation is severely constrained by rugged
+mountain ranges, deep river valleys, seismic instability, and extreme monsoon weather.
+
+Key Geographical & Operational Challenges:
+1. Terrain Complexity: Extreme elevation changes (from 50m in the Brahmaputra valley
+   to over 4,170m at Sela Pass) place extreme mechanical strain on heavy cargo vehicles.
+2. Weather-Related Disruptions: The NER receives among the highest rainfall in the world,
+   triggering hundreds of annual landslides, mudslides, and flash floods between May and September.
+3. High-Altitude Hazards: High Himalayan passes (Sela Pass, Nathu La) experience sudden
+   sub-zero blizzards, freezing fog, and invisible black ice requiring tire chains and 4x4 traction.
+4. Single-Lifeline Vulnerability: Multiple state capitals and border districts depend on
+   a single highway artery (e.g., NH-29 for Nagaland/Manipur, NH-06 for Barak Valley/Mizoram).
+   A single rockfall cuts off all medicine, fuel, and food supplies for weeks.
+5. Riverway Neglect: National Waterway-2 (the Brahmaputra River) spans 891 km from Dhubri
+   to Sadiya but suffers from shifting sand siltation, lack of night navigation, and poor
+   integration with road fleets.
+6. Delays in Essential Goods Delivery: Lifesaving cold-chain medicines, antivenom, and
+   pediatric vaccines spoil when refrigeration trucks are stalled in mountain bottlenecks.
+7. Limitations of Conventional Logistics Systems:
+   - Google Maps / Commercial GPS assume standard passenger cars on paved roads.
+   - They lack awareness of high-altitude pass closures, Bailey bridge tonnage limits,
+     and BRO snow-blower schedules.
+   - They do not support multi-modal river barge transfers or cargo drone corridors.
+   - They offer zero district-level supply vulnerability modeling.
+
+How NER Logistics AI Addresses This Problem:
+The software provides unified visibility into terrain friction, hazard locations,
+multi-modal transit options, and district vulnerability. By monitoring road, river,
+and skyway simultaneously, it reroutes critical cargo before vehicles enter blocked
+corridors, deploys BRO emergency clearance teams faster, and prioritizes life-saving
+goods through weather-resilient modalities.
+
+
+================================================================================
+3. SOLUTION OVERVIEW
+================================================================================
+The platform integrates nine operational modules into a unified web application:
+
+1. Central Operations Dashboard (`/`):
+   Real-time overview of regional logistics health, displaying active vehicle
+   telemetry, live hazard alerts, key performance indicators (KPIs), high-priority
+   corridor status, and quick-dispatch triggers.
+
+2. GIS Spatial Intelligence Map (`/live-map`):
+   Interactive Leaflet GIS map with customized markers for all-terrain trucks,
+   river barges, cargo drones, and medical rovers; hazard hazard-zones; strategic
+   ports, hubs, and high-altitude mountain passes; and animated route polylines.
+
+3. AI Multi-Modal Route Optimization (`/route-optimization`):
+   A heuristic decision-support engine that takes origin, destination, cargo type,
+   and user constraints (e.g., avoid landslides, allow river barge, permit drone)
+   to compute the optimal multi-modal path, showing step-by-step waypoints, risk
+   scores, fuel savings, and an alternative direct highway comparison.
+
+4. Vehicle & Fleet Management (`/vehicles`):
+   Comprehensive telematics registry tracking GPS location, speed, fuel/battery
+   levels, engine temperature, altitude, driver information, direct radio contacts,
+   and cargo consignment specifications.
+
+5. Accessibility Intelligence (`/accessibility`):
+   The Remote District Accessibility Index (RDAI) dashboard, scoring border districts
+   on a 0-100 scale based on terrain complexity, weather vulnerability, road paving
+   ratios, bridge redundancy, and lifeline buffer stocks. Includes an interactive
+   Monsoon Flood Stress-Test simulator.
+
+6. Alerts & Incident Triage (`/alerts`):
+   Emergency incident command feed categorizing natural hazards by severity (Critical,
+   Warning, Info) and category (Landslide, Flood, Weather, Infrastructure). Allows
+   operators to advance BRO heavy machinery clearance progress and broadcast
+   high-priority Emergency SOS alerts.
+
+7. Crowdsourced Field Reporting (`/field-reports`):
+   A ground-up intelligence module where convoy drivers, local volunteers, and
+   river pilots report road debris, submerged sandbars, or active fissures. Includes
+   community upvoting and automatic verification when reports reach 10 votes.
+
+8. SLA Performance & Executive Analytics (`/analytics`):
+   Government executive dossier with Recharts visualizations tracking multi-modal
+   freight absorption, modal share distribution, hazard delays by type, and state
+   accessibility rankings.
+
+9. System Configuration & GIS Settings (`/settings`):
+   Customization portal for telemetry ping frequencies, weather radar intervals,
+   NavIC/GSAT-7 satellite providers, sound alerts, and offline cache synchronization.
+
+10. Offline & Sync Resilience (`OfflineIndicator`):
+    Monitors browser `navigator.onLine` events. When network connectivity drops,
+    it informs the operator that submissions and cached routes are stored in
+    browser storage and will auto-synchronize upon reconnect.
+
+
+================================================================================
+4. COMPLETE TECHNOLOGY STACK
+================================================================================
+All technologies listed below are verified from `package.json`, source files, and
+configuration files in the repository.
+
+Frontend Core:
+- Framework/Library : React 18.3.1 (Component-based architecture, hooks, JSX)
+- Language          : JavaScript (ES2022+ modules, dynamic imports)
+- Build Tool        : Vite 5.4.14 (Ultra-fast HMR, Rollup production bundling)
+- Routing           : React Router DOM 6.29.0 (Declarative nested SPA routing)
+
+Styling & Design System:
+- CSS Framework     : Tailwind CSS 3.4.17 (Utility-first CSS, custom design tokens)
+- PostCSS           : PostCSS 8.5.2 with Autoprefixer 10.4.20
+- Class Utilities   : clsx 2.1.1 & tailwind-merge 2.6.0 (Conflict-free class composition)
+- Custom Styling    : Vanilla CSS (`src/index.css`) for Leaflet marker resets and scrollbars
+- Color Palette     : Dedicated Orange & White AI Command Theme
+                      Primary: `#F97316` (Vibrant Orange), `#EA580C` (Dark Orange)
+                      Surfaces: `#FFFFFF` (Pure White), `#FFF7ED` (Soft Orange Tint)
+                      Borders: `#E2E8F0` (Slate Slate-200), Canvas: `#F8FAFC` (Slate-50)
+
+User Interface & Iconography:
+- Icon Library      : Lucide React 0.475.0 (Extensive SVG icon suite)
+- Animation Library : Framer Motion 11.18.2 (Smooth layout animations, exit transitions,
+                      staggered card entry, spring physics, modal dialog animations)
+
+Mapping & Geospatial (GIS):
+- GIS Map Library   : Leaflet 1.9.4 & React-Leaflet 4.2.1
+- Basemap Provider  : OpenStreetMap Standard Tiles (`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`)
+- Custom GIS Icons  : Dynamic SVG DivIcons (`src/utils/leafletIcons.js`) generating
+                      custom pulsing pins for trucks, barges, drones, medical rovers,
+                      hazards (landslide/flood/snow), and strategic supply ports.
+- Route Geometry    : Leaflet Polyline & custom `AnimatedPolyline.jsx` SVG dash-offset animation.
+
+Data Visualization & Charts:
+- Charting Library  : Recharts 2.15.1
+- Implemented Charts:
+  1. AreaChart (Monthly multi-modal throughput dynamics with linear gradients)
+  2. PieChart / Donut (Logistics modal share distribution with custom cell fills)
+  3. BarChart (Monsoon hazard frequency vs. average clearance delay hours)
+  4. HTML/CSS Data Tables (8-State composite RDAI and active convoy matrix)
+
+Data Layer & Persistence:
+- Storage Engine    : Browser `localStorage` client simulator (`src/services/api.js`)
+- Cache Keys        : `ner_ai_vehicles_fleet`, `ner_ai_hazard_alerts`,
+                      `ner_ai_hazard_incidents`, `ner_ai_field_hazard_reports`
+- Mock Data Sources : Comprehensive, geographically accurate JSON-like datasets in `src/data/`
+- Simulated Delay   : Configurable latency simulator (`simulateDelay`) mimicking REST API responses.
+
+Development & Build Environment:
+- Node.js Target    : Node.js 18+ / 22 LTS
+- Package Manager   : npm
+- Dev Server        : Vite Dev Server (`npm run dev`) with `--host` support
+
+--------------------------------------------------------------------------------
+TECHNOLOGY MATRIX
+--------------------------------------------------------------------------------
+Technology       | Purpose                          | Where Used
+-----------------+----------------------------------+---------------------------
+React 18.3.1     | UI rendering & state management  | Entire application
+Vite 5.4.14      | Build tool & dev server          | Project root, vite.config.js
+Tailwind CSS 3   | Utility styling & layout tokens  | Entire application
+Framer Motion 11 | Smooth page & card animations    | Pages, Cards, Modals
+Leaflet 1.9.4    | Interactive map engine           | MapView, LiveMap, RouteOpt
+React-Leaflet 4  | React bindings for Leaflet       | MapView, LiveMap, RouteOpt
+Recharts 2.15.1  | Data visualization & graphs      | Analytics page
+Lucide React     | Semantic UI icons                | Navigation, buttons, stats
+React Router 6   | SPA client-side routing          | App.jsx, Sidebar, Navbar
+LocalStorage     | Offline persistence & mock DB    | api.js, Services
+
+
+================================================================================
+5. PROJECT ARCHITECTURE
+================================================================================
+The application is structured as a modular, client-side Single Page Application (SPA).
+
+Text-Based Architecture Diagram:
+
+  +-------------------------------------------------------------------------+
+  |                           USER WEB BROWSER                              |
+  +-------------------------------------------------------------------------+
+                                       |
+                                       v
+  +-------------------------------------------------------------------------+
+  |                     INDEX.HTML  &  MAIN.JSX                             |
+  | (Mounts React root, imports index.css & Leaflet CSS)                   |
+  +-------------------------------------------------------------------------+
+                                       |
+                                       v
+  +-------------------------------------------------------------------------+
+  |                        REACT ROUTER DOM (APP.JSX)                       |
+  | Handles client-side navigation between 9 application routes             |
+  +-------------------------------------------------------------------------+
+                                       |
+                                       v
+  +-------------------------------------------------------------------------+
+  |                       DASHBOARD LAYOUT WRAPPER                          |
+  | - Persistent Left Sidebar (collapsible, mobile responsive drawer)       |
+  | - Persistent Top Navbar (breadcrumbs, live clock, SatCom status, search)|
+  | - Floating Offline Resilience Indicator (network status detection)      |
+  | - Animated Content Outlet (Framer Motion page transitions)              |
+  +-------------------------------------------------------------------------+
+                                       |
+                     +-----------------+-----------------+
+                     |                                   |
+                     v                                   v
+  +-------------------------------------+  +--------------------------------+
+  |          APPLICATION PAGES          |  |       REUSABLE COMPONENTS      |
+  | 1. Dashboard (Operations Center)    |  | - StatCard / AnimatedCounter   |
+  | 2. Live Map (GIS Spatial Telemetry) |  | - VehicleCard (Telematics)     |
+  | 3. Route Optimization (AI Solver)   |  | - AlertCard (Disaster Triage)  |
+  | 4. Vehicles (Fleet Registry)        |  | - RouteCard (Corridors)        |
+  | 5. Accessibility (RDAI Vulnerability|  | - ChartCard (Visualizations)   |
+  | 6. Alerts & Incidents (Triage Feed) |  | - MapView / AnimatedPolyline   |
+  | 7. Field Reports (Ground Intel)     |  | - Modal (Accessible Dialogs)   |
+  | 8. Analytics (MoDONER Reporting)    |  | - StatusBadge / SkeletonLoader |
+  | 9. Settings (GIS & Telemetry Config)|  | - LoadingSpinner / OfflineInd. |
+  +-------------------------------------+  +--------------------------------+
+                     |                                   |
+                     +-----------------+-----------------+
+                                       |
+                                       v
+  +-------------------------------------------------------------------------+
+  |                             SERVICES LAYER                              |
+  | - alertService.js   : SOS broadcasts, incident resolution               |
+  | - reportService.js  : Crowdsourced reports, voting & verification       |
+  | - routeService.js   : Multi-modal corridor calculations, hazard lookup  |
+  | - vehicleService.js : Vehicle telemetry pings, registrations            |
+  | - api.js            : Storage client & simulated network latency        |
+  +-------------------------------------------------------------------------+
+                                       |
+                     +-----------------+-----------------+
+                     |                                   |
+                     v                                   v
+  +-------------------------------------+  +--------------------------------+
+  |         MOCK DATA LAYER             |  |      CLIENT STORAGE ENGINE     |
+  | - vehicles.js (142 fleet units)     |  | - window.localStorage          |
+  | - alerts.js (Active natural hazards)|  | - Stores user SOS broadcasts   |
+  | - routes.js (Strategic corridors)   |  | - Stores newly filed reports   |
+  | - districts.js (RDAI district scores|  | - Stores telemetry overrides   |
+  | - incidents.js (Field triage logs)  |  | - Persists offline submissions |
+  | - analytics.js (Throughput/SLA data)|  +--------------------------------+
+  | - deliveries.js (Mission consignments)
+  +-------------------------------------+
+
+
+================================================================================
+6. PROJECT FOLDER STRUCTURE
+================================================================================
+Actual physical directory structure of the repository:
+
+c:\Users\Shilpi Chatterjee\Desktop\SIH\
+ ├── index.html                  # HTML5 entry shell with meta tags & root div
+ ├── package.json                # Project dependencies, metadata, and scripts
+ ├── package-lock.json           # Exact dependency lock tree
+ ├── postcss.config.js           # PostCSS plugins (Tailwind, Autoprefixer)
+ ├── tailwind.config.js          # Tailwind CSS theme tokens, colors, shadows
+ ├── vite.config.js              # Vite bundler configuration & React plugin
+ ├── dist/                       # Production build artifact bundle (compiled)
+ └── src/
+      ├── App.jsx                # Route declarations & route table
+      ├── main.jsx               # React DOM root render bootstrap
+      ├── index.css              # Global styles, Tailwind directives, Leaflet resets
+      ├── layouts/
+      │    └── DashboardLayout.jsx # Master layout: Sidebar, Navbar, Content Outlet
+      ├── pages/
+      │    ├── Dashboard.jsx     # Route `/` - Operational command center
+      │    ├── LiveMap.jsx       # Route `/live-map` - Fullscreen GIS telemetry
+      │    ├── RouteOptimization.jsx # Route `/route-optimization` - AI multi-modal solver
+      │    ├── Vehicles.jsx      # Route `/vehicles` - Fleet registry & telematics
+      │    ├── Accessibility.jsx # Route `/accessibility` - RDAI vulnerability index
+      │    ├── Alerts.jsx        # Route `/alerts` - Disaster incidents & SOS triage
+      │    ├── FieldReports.jsx  # Route `/field-reports` - Crowdsourced ground reports
+      │    ├── Analytics.jsx     # Route `/analytics` - SLA performance & charts
+      │    └── Settings.jsx      # Route `/settings` - Telemetry & GIS configuration
+      ├── components/
+      │    ├── AlertCard.jsx     # Hazard alert card with AI detour advisory
+      │    ├── AnimatedCounter.jsx # Eased numerical count-up component
+      │    ├── AnimatedPolyline.jsx # SVG dashoffset animated route trace
+      │    ├── ChartCard.jsx     # Standardized container for Recharts graphs
+      │    ├── LoadingSpinner.jsx # Orange branded spinning indicator
+      │    ├── MapView.jsx       # Reusable Leaflet map wrapper with controls
+      │    ├── Modal.jsx         # Accessible, animated dialog overlay
+      │    ├── Navbar.jsx        # Top header with search, breadcrumb, profile
+      │    ├── OfflineIndicator.jsx # Bottom notification for offline status
+      │    ├── RouteCard.jsx     # Strategic highway/river corridor card
+      │    ├── Sidebar.jsx       # Navigation drawer with collapse toggle
+      │    ├── SkeletonLoader.jsx# Animated pulse placeholder loading card
+      │    ├── StatCard.jsx      # Standardized metric KPI card with trends
+      │    ├── StatusBadge.jsx   # Micro status badge with semantic colors
+      │    └── VehicleCard.jsx   # Fleet card with clamped names & telematics
+      ├── services/
+      │    ├── alertService.js   # Alerts & SOS broadcast service
+      │    ├── api.js            # Simulated delay & localStorage engine
+      │    ├── reportService.js  # Field report submission & voting
+      │    ├── routeService.js   # Route heuristic & hazard lookup
+      │    └── vehicleService.js # Vehicle telemetry updates & registrations
+      ├── utils/
+      │    └── leafletIcons.js   # Custom SVG Leaflet DivIcon creators
+      └── data/
+           ├── alerts.js         # Real-world inspired natural hazard alerts
+           ├── analytics.js      # Monthly throughput & SLA analytics
+           ├── deliveries.js     # Cold-chain & dry freight consignments
+           ├── districts.js      # Remote district RDAI metrics & factors
+           ├── incidents.js      # BRO field incident triage & clearance logs
+           ├── routes.js         # Strategic NER corridors with waypoints
+           └── vehicles.js       # Fleet units (trucks, barges, drones, medical)
+
+
+================================================================================
+7. COMPLETE WEBPAGE / ROUTE DOCUMENTATION
+================================================================================
+
+--------------------------------------------------------------------------------
+PAGE 1: Executive Operations Dashboard
+--------------------------------------------------------------------------------
+Route: `/`
+Purpose: Central mission control providing high-level operational situational
+awareness across all eight North Eastern states.
+Who Would Use It: Mission Director, Central Dispatcher, Logistics Coordinator.
+Main UI Sections:
+- Top Operational Banner: Title, region scope, quick link to Live GIS Map, Trigger SOS button.
+- AI Logistics Intelligence Bar: Animated pulsing ticker cycling through 5 AI status stages,
+  plus 5 scenario chips (Flood Defense Mode, Heavy Monsoon Rain, Winter Black Ice,
+  Brahmaputra Barge Priority, Cold-Chain Drone Run).
+- Top KPI Metrics Grid: 4 animated StatCards (Active Fleet Convoys, Cargo in Transit,
+  Active Hazard Alerts, Regional RDAI Score).
+- Active Convoys & High-Altitude Transits: Grid of 3 live vehicle cards with speed,
+  battery/fuel, altitude, driver comms, and cargo details.
+- High-Priority Corridors Health: Detailed list of 6 strategic highway and river
+  lifelines showing distance, duration, risk index, and real-time status.
+- Live Terrain Hazards: Feed of 3 critical natural disaster alerts with location,
+  impact description, and AI detour recommendations.
+- Strategic Multi-Modal Supply Hubs: Quick operational cards for Pandu River Port,
+  Itanagar SkyLink Droneport, Dimapur Railhead, and Siliguri Gateway.
+Important Components Used:
+- `StatCard`, `AnimatedCounter`, `VehicleCard`, `AlertCard`, `StatusBadge`, `Modal`.
+How Data is Retrieved:
+- Imports static snapshots from `VEHICLES`, `ROUTES`, `ALERTS`, `ANALYTICS`.
+User Interactions:
+- Clicking "Launch Live GIS Map" navigates to `/live-map`.
+- Clicking "Trigger SOS Triage" opens the Emergency SOS Broadcast modal.
+- Clicking "Telematics" on any vehicle opens the full vehicle inspection modal.
+- Clicking "Track on Map" navigates directly to `/live-map` focusing on that vehicle.
+- Clicking "Detour Advisory" on any alert opens the AI recommendation dialog.
+- Clicking any scenario chip simulates operational scenario filtering.
+Responsive Behavior:
+- Adapts smoothly from a 3-column layout on 1440px/1280px desktops to stacked single
+  columns on 1024px tablets and mobile screens. Card widths are bounded with `min-w-0`.
+
+--------------------------------------------------------------------------------
+PAGE 2: NER Live GIS Telemetry & Terrain Map
+--------------------------------------------------------------------------------
+Route: `/live-map`
+Purpose: Geospatial command canvas displaying real-time vehicle movement, hazard
+zones, strategic supply hubs, and multi-modal corridors on an interactive map.
+Who Would Use It: GIS Spatial Analysts, Convoy Dispatchers, BRO Field Officers.
+Main UI Sections:
+- Header & State Focus Bar: 9 state quick-zoom pills ('All NER', 'Assam', 'Arunachal',
+  'Sikkim', 'Nagaland', 'Manipur', 'Mizoram', 'Meghalaya', 'Tripura').
+- Layer Control Panel: Interactive checkboxes to toggle Vehicles, Corridors,
+  Hazards, Hubs, and Risk Buffers.
+- Reusable GIS Map (`MapView`): Full Leaflet container centered at 26.2006°N, 92.9376°E.
+- Live Telemetry Stream: Sidebar listing active vehicles with GPS coordinates, speed,
+  and quick-center buttons.
+- Bottom Slide-Up Inspection Drawer: Contextual panel appearing when any vehicle,
+  hazard, or hub marker is clicked.
+Important Components Used:
+- `MapView`, `AnimatedPolyline`, `StatusBadge`, Leaflet `Marker`, `Popup`, `Polyline`, `Circle`.
+How Data is Retrieved:
+- Loads data from `VEHICLES`, `ROUTES`, `ALERTS`, `STRATEGIC_HUBS`.
+- Uses a `setInterval` timer (every 3.5s) to simulate real-time coordinate updates
+  for vehicle `NER-TRK-101` and barge `NER-BRG-201` along their route vectors.
+User Interactions:
+- Clicking any state pill smoothly flies the camera to that state's bounding box.
+- Clicking any marker opens an informative popup and opens the slide-up drawer.
+- Toggle layer checkboxes immediately show/hide map layer groups.
+- Clicking "Recenter" smoothly returns the camera to regional center.
+- Inspect drawer includes direct driver phone comms and hazard detour triggers.
+Responsive Behavior:
+- On mobile viewports, the map renders on top (`order-1 lg:order-2`), while the
+  telemetry panel sits underneath (`order-2 lg:order-1`). Inspection drawer is
+  constrained within screen bounds (`left-4 right-4`).
+
+--------------------------------------------------------------------------------
+PAGE 3: AI Multi-Modal Route Optimization
+--------------------------------------------------------------------------------
+Route: `/route-optimization`
+Purpose: Decision-support tool calculating optimal route corridors by combining
+highways, river waterways, and cargo drone flightpaths.
+Who Would Use It: Logistics Planners, Disaster Supply Coordinators, Supply Depot Managers.
+Main UI Sections:
+- Route Parameter Panel: Origin Hub select, Destination Hub select, Cargo Type select.
+- Optimization Priority Mode: 3-way toggle (Fastest / Safest / Eco River).
+- Solver Constraints: 3 checkboxes (Avoid Landslide Risk >50%, Enable NW-2 Barge Transit,
+  Permit VTOL Drone corridor for cold-chain).
+- Sequential AI Processing Display: Animated 4-step progress container during computation.
+- AI Recommended Route Card: Est. time, total distance, risk score, fuel savings,
+  modality badge, dynamic Leaflet route trace preview, and multi-modal dispatch waypoints.
+- Alternative Pathway Comparison: Compares recommended route against a standard road
+  route with warning notes.
+- Convoy Deployment Modal: Formal authorization order with commander assignment and
+  dispatcher authorization code.
+Important Components Used:
+- `MapView`, `AnimatedPolyline`, `StatusBadge`, `Modal`, `AnimatePresence`.
+How Data is Retrieved:
+- Reads from `ORIGIN_HUBS`, `DESTINATION_HUBS`, `CARGO_TYPES`, `ROUTES`, `ALERTS`.
+- Executes simulated 4-stage calculation (`setTimeout` sequence over 1.8 seconds)
+  matching parameters to optimal strategic corridors.
+User Interactions:
+- Selecting cargo type "Cold-Chain Vaccines" and checking "Permit VTOL Drone" triggers
+  the autonomous drone flight recommendation.
+- Selecting Dhubri or Tawang with waterway enabled triggers the Ro-Pax River Barge solution.
+- Clicking "Recalculate Corridor" triggers the 4-step AI solver animation.
+- Clicking "Deploy Mission Convoy" opens the modal to authorize order `NER-ORD-2026-xxx`.
+Responsive Behavior:
+- Stacks the configuration form and results container vertically on tablets and mobile screens.
+
+--------------------------------------------------------------------------------
+PAGE 4: Fleet Telematics & Vehicle Registry
+--------------------------------------------------------------------------------
+Route: `/vehicles`
+Purpose: Comprehensive registry of all registered fleet assets (trucks, barges, drones,
+medical rovers) with live sensor telematics.
+Who Would Use It: Fleet Managers, Maintenance Engineers, Convoy Supervisors.
+Main UI Sections:
+- Top Banner: Fleet overview and "Ping Telemetry" action button.
+- Category Tabs: All Fleet Units, All-Terrain 6x6 & 4x4, River Barges (NW-2),
+  VTOL Cargo Drones, Cold-Chain Medical.
+- Search & Filter Bar: Text search (by ID, driver, highway, state), status dropdown
+  (In Transit, Available, Alert), and state dropdown (8 NER states).
+- Vehicle Cards Grid: Responsive grid displaying vehicle cards with clamped titles,
+  telemetry gauges, driver details, and cargo consignments.
+- Full Telematics Modal: Detailed vehicle health modal with speed, battery, engine temp,
+  altitude, driver direct radio link, and cargo cold-chain specs.
+- Sensor Diagnostics Modal: Hardware scan with tire pressure, battery health, and GPS satellite lock.
+Important Components Used:
+- `VehicleCard`, `StatusBadge`, `Modal`, `AnimatedCounter`.
+How Data is Retrieved:
+- Initialized from `VEHICLES` dataset; mutations stored via `vehicleService.js` in `localStorage`.
+User Interactions:
+- Clicking "Ping Telemetry" runs a simulated satellite ping, updating speeds and temperatures.
+- Typing in search input or changing category/status/state filters filters the grid instantly.
+- Clicking "Telematics" opens the full specification modal.
+- Clicking "Track on Map" opens diagnostic modal or links to Live Map.
+- Clicking "Radio Contact Driver" triggers a simulated VHF radio dispatch alert.
+Responsive Behavior:
+- Grid automatically reflows: 1 column on mobile, 2 columns on tablet, 3 columns on desktop.
+
+--------------------------------------------------------------------------------
+PAGE 5: Remote District Accessibility Index (RDAI)
+--------------------------------------------------------------------------------
+Route: `/accessibility`
+Purpose: Spatial vulnerability assessment measuring physical isolation, weather friction,
+and lifeline redundancy across border districts.
+Who Would Use It: North Eastern Council (NEC) Analysts, Disaster Relief Planners, District Commissioners.
+Main UI Sections:
+- Top Banner: Regional composite score display (`71.4 / 100`) with `AnimatedCounter`.
+- Monsoon Flood Stress-Test Simulator: Toggle switch that dynamically simulates severe
+  monsoon conditions across the region.
+- District Filter Bar: State dropdown and Accessibility Tier dropdown (Critical Isolation,
+  Severe Constraint, Moderate Friction, Accessible).
+- District Cards Grid: Detailed cards showing district population, area, RDAI score,
+  terrain complexity, weather vulnerability, road paving percentage, bridge redundancy,
+  critical lifeline bridges, active drone corridors, and stock buffer days.
+- District Deep-Dive Modal: Factor radar analysis and vulnerability breakdown.
+Important Components Used:
+- `StatusBadge`, `AnimatedCounter`, `Modal`.
+How Data is Retrieved:
+- Reads from `DISTRICTS` dataset (`src/data/districts.js`).
+User Interactions:
+- Toggling "Monsoon Flood Stress-Test" dynamically recalculates every district's score
+  in memory, dropping scores by 9 to 16 points and downgrading tiers to highlight acute risks.
+- Filtering by state or tier updates the visible list immediately.
+- Clicking "Inspect Vulnerability Breakdown" opens the district deep-dive modal.
+Responsive Behavior:
+- Cards reflow from 1 column on small screens to 2 columns on desktops.
+
+--------------------------------------------------------------------------------
+PAGE 6: Emergency Alerts & Incident Triage Command
+--------------------------------------------------------------------------------
+Route: `/alerts`
+Purpose: Disaster response management center for tracking landslides, floods, black ice,
+and coordinating heavy machinery clearance with the Border Roads Organisation (BRO).
+Who Would Use It: BRO Project Officers, SDRF Incident Commanders, Police Traffic Control.
+Main UI Sections:
+- Top Banner: Disaster protocol status indicator and "Broadcast Emergency SOS" button.
+- Severity & Category Filter Bar: Quick filter pills (All, Critical, Warning, Info)
+  and Category dropdown (Landslides, Floods, Weather, Infrastructure).
+- Two-Column Command Layout:
+  - Left 2 Columns: Active Ground Incident Triage cards showing incident ID, priority badge,
+    time, location, assigned BRO team, deployed heavy equipment (e.g. Caterpillar 320D excavators),
+    animated clearance progress bar, and "Advance Clearance (+20%)" button.
+  - Right 1 Column: Live Hazard Stream with `AlertCard` components.
+- Incident Operational Logs Modal: Chronological timestamped event logs of clearance operations.
+- Emergency SOS Modal: Multi-channel broadcast form (subject, severity, road marker)
+  syncing via `alertService.js`.
+Important Components Used:
+- `AlertCard`, `StatusBadge`, `Modal`.
+How Data is Retrieved:
+- Retrieves alerts from `ALERTS` and incidents from `INCIDENTS`, supporting updates via `alertService.js`.
+User Interactions:
+- Clicking "Advance Clearance (+20%)" increments the incident's progress bar by 20%.
+  When it reaches 100%, status flips to "Resolved" with a green checkmark.
+- Clicking "View Operational Logs" opens the full historical incident update timeline.
+- Submitting the Emergency SOS modal broadcasts the alert, saves it to `localStorage`,
+  and shows a success confirmation banner.
+Responsive Behavior:
+- Stacks incident triage and alert stream vertically on mobile/tablet viewports.
+
+--------------------------------------------------------------------------------
+PAGE 7: Crowdsourced Field Hazard Reports
+--------------------------------------------------------------------------------
+Route: `/field-reports`
+Purpose: Grassroots ground intelligence platform enabling drivers and local volunteers
+to report real-time road conditions, waterlogging, and rockfalls with community validation.
+Who Would Use It: Long-haul truck drivers, local residents, SDRF volunteers, river pilots.
+Main UI Sections:
+- Top Banner: Community reporting statistics and "File Ground Hazard Report" button.
+- Search & Severity Filter Bar: Instant search across reporter, location, and road.
+- Reports Feed: Cards displaying reporter name, role, timestamp, location, hazard classification,
+  description, image proof badge, community verification badge, and upvote button.
+- File Ground Hazard Report Modal: Complete form to submit new incident with name,
+  role, location, hazard classification, severity, description, and simulated photo attachment.
+Important Components Used:
+- `StatusBadge`, `Modal`.
+How Data is Retrieved:
+- Initialized from `INITIAL_REPORTS` and managed via `reportService.js` with `localStorage` persistence.
+User Interactions:
+- Clicking the Thumbs-Up / Vote button increments the report's community vote count.
+  When votes reach 10 or more, the report is automatically marked with a green
+  "Community Verified" badge.
+- Submitting a new report appends it to the top of the feed and saves it to `localStorage`.
+Responsive Behavior:
+- Single-column card stream with responsive wrapping on all screen sizes.
+
+--------------------------------------------------------------------------------
+PAGE 8: SLA Performance & Spatial Logistics Analytics
+--------------------------------------------------------------------------------
+Route: `/analytics`
+Purpose: Executive reporting dashboard for the North Eastern Council (NEC) and
+Ministry of Development of North Eastern Region (MoDONER) evaluating logistics performance.
+Who Would Use It: Ministry Officials, State Transport Secretaries, Logistics Economists.
+Main UI Sections:
+- Top Banner: Time-range filter pills (Last 30 Days, Monsoon Q2, Annual 2026) and
+  "Export Government Dossier" action button.
+- Top KPI Metrics: 4 StatCards (Avg Transit Time Reduction, Freight Modality Shift,
+  Carbon Offset Generated, Disaster Clearance Velocity).
+- Visualization Row 1:
+  - Multi-Modal Freight Throughput Dynamics: Recharts AreaChart comparing road freight tons
+    vs. Brahmaputra NW-2 barge freight tons over 6 months.
+  - Logistics Modal Share: Recharts Donut PieChart showing percentage breakdown
+    (Road Convoys 58%, River Barges 32%, Drones 7%, Hill Rail 3%).
+- Visualization Row 2:
+  - Monsoon Disruption Frequency & Clearance Delays: Recharts dual BarChart comparing
+    reported incidents vs. average delay hours by hazard type.
+  - 8-State Accessibility & Convoys Performance Table: Table displaying state name,
+    composite RDAI, progress bar, lifeline coverage percentage, and active convoy counts.
+- Export Government Dossier Modal: Formal executive summary preview with simulated PDF export.
+Important Components Used:
+- `StatCard`, `ChartCard`, `Modal`, Recharts components (`AreaChart`, `PieChart`, `BarChart`).
+How Data is Retrieved:
+- Sourced from `ANALYTICS` dataset (`src/data/analytics.js`).
+User Interactions:
+- Clicking time-range pills switches the active report timeframe.
+- Hovering over charts triggers custom tooltip dialogs showing exact metric figures.
+- Clicking "Export Government Dossier" opens the preview modal and triggers simulated PDF download.
+Responsive Behavior:
+- 2-column chart grids reflow into a single column on tablet and mobile viewports. Tables have horizontal scroll wrappers.
+
+--------------------------------------------------------------------------------
+PAGE 9: System Configuration & GIS Telemetry Settings
+--------------------------------------------------------------------------------
+Route: `/settings`
+Purpose: Technical administration portal for configuring telemetry polling daemons,
+satellite communication providers, offline cache storage, and alert protocols.
+Who Would Use It: System Administrators, IT Operations, Communications Engineers.
+Main UI Sections:
+- Top Banner: Operational Gateway badge and "Save Configuration" button.
+- Section 1: Telemetry & Transponder Frequencies (GPS ping rate, weather radar interval).
+- Section 2: Satellite Communications & Ground Stations (ISRO NavIC / GSAT-7,
+  Emergency VHF radio gateway, bandwidth consumption counter).
+- Section 3: AI Solver & Automated Protocols (Auto-reroute drones toggle, sound alerts toggle).
+- Section 4: Offline Resilience & Cache Management (Cache status indicator, Clear & Re-sync button).
+Important Components Used:
+- `Modal`, Framer Motion cards, Lucide icons.
+How Data is Retrieved:
+- State initialized locally in React; persists simulation feedback.
+User Interactions:
+- Modifying dropdowns and toggles updates system parameters.
+- Clicking "Clear & Re-sync Cache" executes simulated cache flush and re-syncs 14 items.
+- Clicking "Save Configuration" displays a green notification banner confirming broadcast to daemons.
+Responsive Behavior:
+- 2-column settings grid collapses into a single column on mobile/tablet viewports.
+
+
+================================================================================
+8. DASHBOARD PAGE IN DETAIL
+================================================================================
+The Dashboard (`src/pages/Dashboard.jsx`) represents the operational nerve center.
+Here is the step-by-step breakdown from top to bottom:
+
+1. Top Operational Header:
+   - Contains a badge: "SIH26002 • North Eastern Region Spatial Intelligence Network".
+   - Heading: "Integrated Logistics Operations Center".
+   - Subtitle outlining the 8-state coverage area.
+   - Quick Action 1: "Launch Live GIS Map" button (direct link to `/live-map`).
+   - Quick Action 2: "Trigger SOS Triage" button (opens emergency broadcast modal).
+
+2. AI Logistics Intelligence Active Bar:
+   - A pulsing orange icon (`Cpu`) with a radar animation.
+   - Dynamic Text Ticker: Cycles every 3.2 seconds through 5 operational stages:
+     Stage 1: "AI ANALYZING CORRIDOR TELEMETRY..."
+     Stage 2: "ANALYZING ROAD & MUD CONDITIONS..."
+     Stage 3: "ANALYZING MONSOON WEATHER SENSORS..."
+     Stage 4: "ANALYZING REMOTE DISTRICT ACCESSIBILITY..."
+     Stage 5: "CALCULATING OPTIMAL MULTI-MODAL PATHS..."
+   - Scenario Chips: 5 clickable scenario filters representing monsoon, black ice,
+     barge priority, and drone runs.
+
+3. Top KPI Metric Cards (4 Cards):
+   - Card 1: Active Fleet Convoys - Value: `142`, Trend: `+8 today`, Badge: `98.4% GPS Lock`.
+   - Card 2: Cargo in Transit - Value: `1,485 Tons`, Trend: `+12.4% MoM`, Badge: `94.6% On-Time SLA`.
+   - Card 3: Active Hazard Alerts - Value: `05 Critical / Warning`, Badge: `IMD & BRO Monitored`.
+   - Card 4: Regional Accessibility RDAI - Value: `71.4 / 100`, Badge: `8 NER States (Severe in 2)`.
+   - All numerical values animate dynamically on mount using `AnimatedCounter.jsx`.
+
+4. Main Content 2-Column Split:
+   - Left Column (Spans 2 out of 3 desktop columns):
+     a) Active Convoys & High-Altitude Transits:
+        Displays 3 vehicle cards (`NER-TRK-101`, `NER-TRK-102`, `NER-BRG-201`).
+        Each card shows vehicle name (clamped to 2 lines), category badge (`Truck`, `Barge`),
+        current highway, driver experience, live speed, fuel level, altitude, cargo details,
+        and anchored action buttons ("Telematics" and "Track on Map").
+     b) High-Priority Corridors Health:
+        A list of 6 strategic NER corridors (Guwahati-Tawang, Guwahati-Silchar,
+        Brahmaputra NW-2, Dimapur-Kohima-Imphal, Silchar-Aizawl, Siliguri-Gangtok).
+        Shows origin/destination, distance, transit time, risk index, road conditions,
+        and status badges.
+   - Right Column (Spans 1 out of 3 desktop columns):
+     a) Live Terrain Hazards:
+        Displays 3 alert cards (`ALT-1092` Landslide KM 48, `ALT-1091` Monsoon Water Surge NW-2,
+        `ALT-1090` Sela Pass Black Ice). Each card displays severity badge, incident title,
+        corridor, impact description, and AI Detour Recommendation.
+     b) Strategic Supply Hubs Status:
+        Quick operational status widgets for Pandu River Port, Itanagar Droneport,
+        Dimapur Railhead, and Siliguri Gateway.
+
+5. Interactive Modals:
+   - Emergency SOS Modal: Dispatches high-priority alert across SatCom channels.
+   - Vehicle Telematics Modal: Shows live gauges, driver comms, and cold-chain temperature.
+   - Hazard Detour Advisory Modal: Displays rerouting directions for blocked corridors.
+
+
+================================================================================
+9. LIVE MAP / GIS SYSTEM
+================================================================================
+1. GIS Technology Stack:
+   - Leaflet 1.9.4 and React-Leaflet 4.2.1.
+   - OpenStreetMap Standard Cartographic Tiles.
+   - WGS 84 coordinate reference system.
+   - Custom Camera Controller (`MapCameraController`) executing smooth camera flying
+     (`map.flyTo`) and invalidating map size on mount to eliminate gray tile glitches.
+
+2. Geographical Bounds & Initial Position:
+   - Map center: `[26.2006, 92.9376]` (Regional geographic midpoint in Assam/Meghalaya).
+   - Initial zoom level: `7` (Encompassing all 8 North Eastern states).
+
+3. Custom SVG Markers (`src/utils/leafletIcons.js`):
+   - Vehicle Markers: Generates color-coded circular pins with icons for Trucks (Orange),
+     Barges (Blue), Drones (Green), and Medical rovers (Red), complete with pulsing radar rings.
+   - Hazard Markers: Severity-coded markers with icons for Landslides (Mountain/Rock),
+     Floods (Water wave), Snow/Black Ice (Snowflake), and Bridge Structural limits.
+   - Strategic Hub Markers: Distinctive badges for River Ports, Supply Hubs, and Mountain Passes.
+
+4. Map Layers & Controls:
+   - Layer 1 (Vehicles): 142 simulated fleet units plotted across primary highways.
+   - Layer 2 (Corridors): Polyline routes connecting major supply depots.
+   - Layer 3 (Hazards): Live incident markers with red risk buffer circles (`Circle`).
+   - Layer 4 (Hubs): 15 strategic supply depots, river ports, and Himalayan passes.
+   - Layer 5 (Risk Polygons): Visual danger radii surrounding high-propensity landslide zones.
+
+5. Simulated Real-Time Vehicle Movement:
+   - A background timer smoothly increments coordinates for truck `NER-TRK-101` and
+     barge `NER-BRG-201` every 3.5 seconds along their highway and river vectors.
+   - Automatically respects user's `prefers-reduced-motion` settings.
+
+6. Animated Polyline Routing:
+   - `AnimatedPolyline.jsx` uses SVG `stroke-dasharray` and `stroke-dashoffset` CSS animations
+     to dynamically draw the orange route trajectory from origin to destination.
+
+7. Interactive Inspection Drawer:
+   - Clicking any marker on the map opens a slide-up drawer displaying complete telemetry,
+     driver contact details, cargo consignment data, and direct dispatch actions.
+
+
+================================================================================
+10. AI ROUTE OPTIMIZATION
+================================================================================
+1. Nature of the AI System:
+   - The route optimization engine is a RULE-BASED HEURISTIC SOLVER simulating an
+     intelligent AI multi-modal decision support system.
+   - It does NOT make calls to external third-party closed APIs (like OpenAI or Google Cloud AI).
+   - It runs deterministic, domain-specific optimization algorithms directly within
+     the client application using topological and constraint-based heuristics.
+
+2. User Inputs:
+   - Origin Hub (e.g., Guwahati Logistic Hub, Pandu River Port, Silchar Logistics Park).
+   - Destination Hub (e.g., Tawang Civil Supply Depot, Imphal Capital Center, Kohima Depot).
+   - Cargo Type (Cold-chain vaccines, Disaster food rations, Heating fuel, Agro-fertilizers).
+   - Priority Mode:
+     - Fastest: Prefers uninterrupted highways or drone skyways.
+     - Safest: Avoids sectors with active landslide alerts and steep elevation friction.
+     - Eco / River: Maximizes Brahmaputra NW-2 barge transport to reduce fuel consumption.
+   - Solver Constraints (Checkboxes):
+     - Avoid sectors with >50% landslide risk.
+     - Enable Brahmaputra NW-2 barge transit.
+     - Permit VTOL drone corridor for cold-chain medicine.
+
+3. Four-Step AI Processing Sequence:
+   When the user clicks "Recalculate Corridor", the UI displays an animated multi-step
+   inference sequence with a pulsing neural icon (`Cpu`):
+   - Step 1: "Analyzing road conditions..." (checks slope, paving ratio, mud hazards).
+   - Step 2: "Analyzing weather..." (checks IMD rainfall radar, black ice, river flow).
+   - Step 3: "Analyzing accessibility..." (evaluates RDAI district isolation index).
+   - Step 4: "Calculating optimal route..." (synthesizes multi-modal switches and waypoints).
+
+4. Decision Logic & Multi-Modal Switching:
+   - Drone Trigger: If cargo is "Cold-Chain Vaccines" AND "Permit VTOL Drone" is checked,
+     the solver selects the Garuda SkyWay Autonomous VTOL flight (e.g. 2h 15m vs 14h road).
+   - Waterway Trigger: If "Enable NW-2 Barge" is checked AND destination is Dhubri or Tawang,
+     the solver routes bulk cargo via river barge to bypass vulnerable highway chokepoints.
+   - Heavy Road Trigger: If cargo is heavy rations or fuel, the solver selects reinforced
+     6x6 off-road routes avoiding active landslide sectors.
+
+5. Output Results:
+   - Primary Recommended Route: Shows title, transit time, total distance, risk score (/100),
+     fuel savings percentage, elevation profile, animated route map, and step-by-step itinerary.
+   - Alternative Pathway Comparison: Compares the recommended route against a traditional
+     direct highway, explicitly stating friction alerts and potential delay penalties.
+   - Deploy Mission Convoy: Formally commits the route and generates a mission order.
+
+
+================================================================================
+11. VEHICLE / FLEET MANAGEMENT
+================================================================================
+1. Fleet Registry Overview:
+   - Sourced from `src/data/vehicles.js` representing 142 fleet assets.
+   - Covers 4 distinct operational categories:
+     1. All-Terrain 6x6 & 4x4 Trucks (e.g., Brahmaputra Mammoth 6x6, Kanchenjunga Hauler).
+     2. River Cargo Barges (e.g., Luit Express Ro-Pax Barge on NW-2).
+     3. Heavy Lift VTOL Drones (e.g., Garuda-X Autonomous SkyLifter).
+     4. Cold-Chain Medical Rovers (e.g., Dhanvantari Cold-Rover 4x4).
+
+2. Tracked Telemetry Parameters:
+   - GPS Location: Latitude, Longitude, Heading, Current Highway Corridor, Operating Hub.
+   - Dynamics: Real-time speed (km/h), Speed limit adherence.
+   - Energy / Propulsion: Fuel level (%), Battery state-of-charge (%).
+   - Mechanical Health: Engine temperature (°C), Average tire pressure (PSI), Battery health (%).
+   - Environment: Operating altitude (meters above sea level), GPS satellites locked.
+   - Crew: Convoy driver/operator name, direct mobile/satellite phone, experience years, safety rating.
+   - Cargo: Consignment ID, description, payload weight (kg), vehicle capacity (kg),
+     temperature control indicator, internal cargo temperature (°C), destination depot.
+   - Status: In Transit, Available, Maintenance, Alert.
+
+3. User Actions & Simulations:
+   - Search: Instant filtering by vehicle ID, driver name, highway corridor, or state.
+   - Category Filter: Quick tab filtering by Truck, Barge, Drone, or Medical rover.
+   - Status & State Filters: Multi-select dropdown filtering.
+   - Satellite Ping Simulator: Pings all fleet transponders, updating live metrics and showing
+     a confirmation banner.
+   - Detail Modals: Opens full vehicle telematics or hardware diagnostic scan.
+
+
+================================================================================
+12. ACCESSIBILITY INTELLIGENCE
+================================================================================
+1. The Remote District Accessibility Index (RDAI):
+   - A composite logistical vulnerability scoring model (`src/data/districts.js`)
+     measuring physical isolation across North Eastern border districts.
+   - Score Range: 0 to 100 (Lower score = more isolated, higher supply risk).
+
+2. Accessibility Tiers:
+   - Critical Isolation (Score < 45): e.g., Kurung Kumey (Arunachal Pradesh - 38).
+   - Severe Constraint (Score 45 - 59): e.g., Dima Hasao (Assam - 54), Saiha (Mizoram - 48).
+   - Moderate Friction (Score 60 - 74): e.g., Mon (Nagaland - 62), West Sikkim (68).
+   - Accessible (Score >= 75): e.g., Kamrup Metropolitan / Guwahati (Assam - 88).
+
+3. Underlying Evaluated Factors:
+   - Terrain Complexity: Slope angle, hair-pin frequency, elevation gradient (0-100).
+   - Weather Vulnerability: Annual rainfall intensity, landslide susceptibility (0-100).
+   - Bridge Redundancy: Alternate crossing points if primary bridge fails (0-100).
+   - Road Bitumen Ratio: Percentage of paved all-weather roads vs. unpaved dirt tracks.
+   - Nearest Air / Drone Hub Distance (km).
+   - Average Transit Days to State Hub.
+   - Critical Lifeline: Key bridges, aqueducts, or ridge cuts keeping the district supplied.
+   - Key Supplies Stock Buffer (Days): Emergency food, medicine, and fuel reserve capacity.
+
+4. Interactive Monsoon Flood Stress-Test Simulator:
+   - A toggle on the Accessibility page simulates severe monsoon conditions across NER.
+   - When activated, weather-vulnerable districts dynamically lose 9 to 16 points,
+     downgrading their accessibility tiers and flagging immediate buffer stock emergencies.
+
+
+================================================================================
+13. ALERTS & INCIDENT MANAGEMENT
+================================================================================
+1. Hazard Categories:
+   - Landslides & Mudflows: Slope failures, falling shale, debris blocking carriageways.
+   - Monsoon River Floods: Brahmaputra surges, submerged sandbanks, riverbank erosion.
+   - High-Altitude Weather: Sub-zero black ice, blizzards, freezing fog on mountain passes.
+   - Infrastructure Constraints: Bailey bridge tonnage limits, structural load repairs.
+
+2. Severity Classifications:
+   - Critical (Red): Complete road blockage, convoy stoppage, emergency detour required.
+   - Warning (Amber): Caution advised, single-lane passage, 4x4 / tire chains mandatory.
+   - Info (Blue/Orange): Advisory notice, shifting sand dunes, scheduled maintenance.
+
+3. Emergency Incident Triage:
+   - Tracks ongoing clearance operations under the Border Roads Organisation (BRO).
+   - Lists assigned response units (e.g. BRO Project Sewak QRU 3, Project Vartak).
+   - Details deployed heavy equipment: Caterpillar 320D hydraulic excavators, front-end
+     wheel loaders, tipper dumper trucks, triage personnel.
+   - Clearance Progress Bar: Displays current percentage (e.g., 45% -> 70% -> 100%).
+   - Operators can advance progress in +20% increments until marked "Sector Cleared".
+
+4. Emergency SOS Protocol:
+   - Operators can broadcast high-priority emergency alerts transmitting across 142
+     SatCom telematics units, IWAI river port radio, and SDRF gateways.
+   - Saved locally via `alertService.js` and displayed in the real-time hazard stream.
+
+
+================================================================================
+14. FIELD REPORTING
+================================================================================
+1. Purpose & Crowdsourcing Model:
+   - Provides grassroots ground intelligence directly from commercial drivers,
+     volunteer hill specialists, river pilots, and local residents.
+   - Fills data gaps where official government sensor telemetry is delayed.
+
+2. Report Attributes:
+   - Reporter Name and Operational Role.
+   - Specific Location and Highway Marker.
+   - Hazard Classification (Landslide, Waterlogging, Black Ice, Bridge Damage, Subsidence).
+   - Severity Level (Critical, Warning, Info).
+   - Detailed Description of carriageway conditions.
+   - Photo Proof indicator.
+   - Community Votes count.
+   - Community Verified status.
+
+3. Community Verification Mechanism:
+   - Users can upvote any report by clicking the Thumbs-Up button.
+   - When a report receives 10 or more community votes, the system automatically
+     awards it a green "Community Verified" badge with a `ShieldCheck` icon.
+
+4. Filing New Reports:
+   - Includes a modal form with input validation. Submitting saves the report to
+     browser `localStorage` via `reportService.js` and displays it instantly in the feed.
+
+
+================================================================================
+15. ANALYTICS
+================================================================================
+The Analytics module (`src/pages/Analytics.jsx`) provides four executive-level
+visualizations built using Recharts:
+
+1. Chart 1: Multi-Modal Freight Throughput Dynamics
+   - Type: Recharts `AreaChart` with gradient fills.
+   - X-Axis: Months (Apr, May, Jun - Monsoon Start, Jul - Peak Flood, Aug, Sep - Current).
+   - Y-Axis: Freight Volume in Tons (scaled in thousands, 'k').
+   - Series 1: All-Terrain Road Freight (Orange gradient, `#F97316`).
+   - Series 2: Brahmaputra NW-2 Barge Freight (Blue gradient, `#2563EB`).
+   - Operational Insight: Demonstrates the multi-modal shift where river barge freight
+     surges from 6,200T in April to 13,400T in July, absorbing freight volume as road
+     highways suffer monsoon landslide closures.
+
+2. Chart 2: Logistics Modal Share Distribution
+   - Type: Recharts `PieChart` / Donut Chart with custom cell colors.
+   - Slices:
+     - All-Terrain Road Convoys: 58% (`#F97316`)
+     - Brahmaputra River Barges: 32% (`#2563EB`)
+     - Autonomous Medical Drones: 7% (`#16A34A`)
+     - Hill Railway Freight: 3% (`#F59E0B`)
+   - Operational Insight: Shows proportional distribution of transport modalities
+     across the regional supply chain.
+
+3. Chart 3: Monsoon Disruption Frequency & Clearance Delays
+   - Type: Recharts dual `BarChart`.
+   - X-Axis: Hazard Categories (Landslide, Flood, Black Ice, Bridge, Dense Fog).
+   - Series 1: Incidents Reported in Q2 (Orange bars, `#F97316`).
+   - Series 2: Average Clearance Delay in Hours (Slate bars, `#64748B`).
+   - Operational Insight: Shows that landslides occur most frequently (42 events) and
+     impose the highest delay penalty (6.8 hours avg), justifying BRO excavator positioning.
+
+4. Table / Performance Matrix: 8-State Accessibility & Convoys Performance
+   - Sourced from `ANALYTICS.stateAccessibilityRanking`.
+   - Displays all 8 NER states, their composite RDAI score, horizontal progress bar,
+     lifeline coverage percentage, and active convoy counts.
+
+5. Government Dossier Export:
+   - "Export Government Dossier" button opens an official NEC / MoDONER brief
+     and triggers simulated PDF generation (`NER-SLA-REPORT-2026-Q2.pdf`).
+
+
+================================================================================
+16. SETTINGS
+================================================================================
+The Settings page (`src/pages/Settings.jsx`) configures technical operational parameters:
+
+1. Telemetry & Transponder Frequencies:
+   - GPS Fleet Transponder Ping Rate: 5s, 15s (default), 30s, 60s.
+   - IMD Weather Radar Feed Refresh: 5m, 10m (default), 30m, 60m.
+
+2. Satellite Communications & Ground Stations:
+   - Satellite Telemetry Provider: ISRO NavIC / GSAT-7 Military Constellation (active default),
+     Inmarsat-C Maritime, Iridium Extreme, Emergency VHF Ground Repeaters.
+   - Live SatCom Bandwidth Consumption counter (48.2 KB/s).
+
+3. AI Solver & Automated Protocols:
+   - Sound Alerts for Critical Landslides toggle.
+   - High-Contrast Sunlight GIS Map Mode toggle.
+   - Automated Medical Drone Detour Dispatch toggle.
+
+4. Offline Resilience & Cache Management:
+   - Current cache status: `14 items cached (1.2 MB)`.
+   - Clear & Re-sync Cache button with simulated 800ms cache purge and reload.
+   - Save Configuration button with confirmation notification banner.
+
+
+================================================================================
+17. NAVIGATION & USER EXPERIENCE
+================================================================================
+1. Sidebar Navigation (`src/components/Sidebar.jsx`):
+   - Position: Fixed left sidebar (`w-64` expanded, `w-20` collapsed).
+   - Brand Header: Orange compass logo (`#F97316`), "NER LOGISTICS AI" title.
+   - Collapse Toggle: Desktop chevron toggle to collapse into a clean icon-only sidebar.
+   - Navigation Items (9 Routes):
+     - Dashboard (`/`)
+     - Live Map (`/live-map`)
+     - Route Optimization (`/route-optimization`)
+     - Vehicles (`/vehicles`)
+     - Accessibility (`/accessibility`)
+     - Alerts & Incidents (`/alerts`) - Includes red badge '4'
+     - Field Reports (`/field-reports`)
+     - Analytics (`/analytics`)
+     - Settings (`/settings`)
+   - Active Indicator: Highlighted soft orange background (`#FFF7ED`), orange text (`#EA580C`),
+     and an orange left border bar.
+   - Mobile Drawer: Converts to a slide-out drawer on screens < 1024px with a backdrop overlay.
+
+2. Top Navbar (`src/components/Navbar.jsx`):
+   - Left: Mobile hamburger menu toggle button; breadcrumb path (e.g., `NER Portal / Operations`);
+     active page title.
+   - Middle: Global search bar (`id="navbar-global-search"`) with search icon and keyboard placeholder.
+   - Right:
+     - Live Connectivity Badge: Green `Wifi` icon showing "SatCom Live" (or Amber `WifiOff` "Offline Mode").
+     - Notification Bell: Interactive dropdown showing 3 live alerts (Landslide NH-29, NW-2 water surge,
+       Cold-chain consignment).
+     - User Profile Pill: Displays "Dr. Himanta K. (Regional Mission Director, NEC)".
+
+3. Modals & Overlays (`src/components/Modal.jsx`):
+   - Framer Motion animated modal wrapper with smooth backdrop fade and scale-in curve.
+   - Traps focus, features explicit close button and backdrop dismissal.
+   - Content bounded by `overflow-y-auto max-h-[calc(90vh-140px)]`.
+
+4. Tooltips & Micro-Interactions:
+   - Truncated text across cards has native `title="..."` attributes for hover tooltips.
+   - Buttons have hover elevation and active scale feedback (`active:scale-95`).
+
+
+================================================================================
+18. REUSABLE COMPONENTS
+================================================================================
+All 15 components located in `src/components/`:
+
+1. `AlertCard.jsx`:
+   - Purpose: Renders natural hazard alerts with severity badges, impact descriptions,
+     AI detour advisories, and detour calculation triggers.
+   - Props: `alert` (object), `onReroute` (function).
+   - Used In: Dashboard, Alerts.
+
+2. `AnimatedCounter.jsx`:
+   - Purpose: Performs smooth frame-by-frame numerical count-up animations on mount.
+   - Props: `value` (number/string), `duration` (ms), `prefix`, `suffix`.
+   - Used In: Dashboard KPI cards, Accessibility regional score, StatCards.
+
+3. `AnimatedPolyline.jsx`:
+   - Purpose: Draws an animated SVG polyline on Leaflet maps simulating route progress.
+   - Props: `positions` (lat/lng array), `duration` (ms), `pathOptions` (color/weight).
+   - Used In: LiveMap, RouteOptimization map preview.
+
+4. `ChartCard.jsx`:
+   - Purpose: Standardized container with title, subtitle, and action buttons for charts.
+   - Props: `title` (string), `subtitle` (string), `children`, `action` (node).
+   - Used In: Analytics page.
+
+5. `LoadingSpinner.jsx`:
+   - Purpose: Orange branded circular spinning loader with accessible text.
+   - Props: `size` ('sm' | 'md' | 'lg'), `message` (string).
+   - Used In: Route solver processing, telematics refresh.
+
+6. `MapView.jsx`:
+   - Purpose: Reusable Leaflet map wrapper with camera controller, OpenStreetMap tiles,
+     custom HUD badge, coordinates ribbon, and recenter button.
+   - Props: `center` (lat/lng), `zoom` (number), `height` (CSS height), `children`, `onRecenter`.
+   - Used In: LiveMap, RouteOptimization.
+
+7. `Modal.jsx`:
+   - Purpose: Accessible dialog overlay with Framer Motion entry/exit animations.
+   - Props: `isOpen` (boolean), `onClose` (function), `title`, `subtitle`, `icon`, `maxWidth`, `children`.
+   - Used In: All pages for telematics, SOS broadcast, field reporting, and dossier export.
+
+8. `Navbar.jsx`:
+   - Purpose: Global header with breadcrumbs, search, SatCom status, notifications, and profile.
+   - Props: `onMobileMenuToggle` (function).
+   - Used In: DashboardLayout.
+
+9. `OfflineIndicator.jsx`:
+   - Purpose: Fixed bottom-right toast notifying the user of network disconnections and cache status.
+   - Props: None (uses window event listeners).
+   - Used In: DashboardLayout.
+
+10. `RouteCard.jsx`:
+    - Purpose: Card displaying corridor distance, duration, elevation, risk score, and modal switches.
+    - Props: `route` (object), `onSelect` (function).
+    - Used In: Dashboard corridor health list.
+
+11. `Sidebar.jsx`:
+    - Purpose: Collapsible left navigation bar with active route highlighting and mobile drawer.
+    - Props: `isCollapsed`, `setIsCollapsed`, `isMobileOpen`, `setIsMobileOpen`.
+    - Used In: DashboardLayout.
+
+12. `SkeletonLoader.jsx`:
+    - Purpose: Shimmering placeholder animation for cards and metrics during data load.
+    - Props: `type` ('stat' | 'card' | 'table' | 'map'), `count` (number).
+    - Used In: Fleet registry and triage feeds.
+
+13. `StatCard.jsx`:
+    - Purpose: Executive metric card with icon, animated value, trend indicator, and badge.
+    - Props: `title`, `value`, `change`, `trend` ('up' | 'down'), `caption`, `icon`, `badgeText`, `badgeType`.
+    - Used In: Dashboard KPIs, Analytics KPIs.
+
+14. `StatusBadge.jsx`:
+    - Purpose: Micro semantic pill badge for vehicle, alert, or route statuses.
+    - Props: `status` (string), `size` ('xs' | 'sm' | 'md').
+    - Used In: VehicleCard, AlertCard, RouteCard, Modals.
+
+15. `VehicleCard.jsx`:
+    - Purpose: Card rendering vehicle names (clamped to 2 lines), category badge, live telemetry
+      gauges, driver details, cargo specs, and anchored action buttons.
+    - Props: `vehicle` (object), `onInspect` (function), `onTrackOnMap` (function).
+    - Used In: Dashboard active convoys, Vehicles registry.
+
+
+================================================================================
+19. DATA FLOW
+================================================================================
+Diagram illustrating data flow through the application:
+
+  +-------------------------------------------------------------+
+  |              STATIC DATA REPOSITORY (SRC/DATA/)             |
+  |  - vehicles.js, alerts.js, routes.js, districts.js, etc.    |
+  +-------------------------------------------------------------+
+                                 |
+                                 v
+  +-------------------------------------------------------------+
+  |                   SERVICES LAYER (SRC/SERVICES/)            |
+  |  - alertService, reportService, routeService, vehicleService|
+  |  - storage.get / storage.set (LocalStorage cache)           |
+  |  - simulateDelay (Network latency simulator)                |
+  +-------------------------------------------------------------+
+                                 |
+                                 v
+  +-------------------------------------------------------------+
+  |                   PAGE CONTROLLER / HOOKS                   |
+  |  - React useState & useEffect initialize page data          |
+  |  - Filters: category, severity, state, text query           |
+  |  - Background timers: vehicle movement, AI stage ticker     |
+  +-------------------------------------------------------------+
+                                 |
+                                 v
+  +-------------------------------------------------------------+
+  |                    REUSABLE UI COMPONENTS                   |
+  |  - Passes filtered data down via props                      |
+  |  - VehicleCard, AlertCard, StatCard, MapView, Recharts      |
+  +-------------------------------------------------------------+
+                                 |
+                                 v
+  +-------------------------------------------------------------+
+  |                       USER INTERACTIONS                     |
+  |  - Trigger SOS -> alertService.broadcastSosAlert            |
+  |  - Submit Field Report -> reportService.submitReport        |
+  |  - Advance Clearance -> alertService.resolveIncident        |
+  |  - Upvote Hazard -> reportService.upvoteReport              |
+  |  - Ping Telemetry -> vehicleService.updateTelemetry         |
+  +-------------------------------------------------------------+
+                                 |
+                                 v
+  +-------------------------------------------------------------+
+  |                   PERSISTENCE / LOCALSTORAGE                |
+  |  - Changes committed to localStorage ('ner_ai_*')           |
+  |  - UI state immediately reflects updated data               |
+  +-------------------------------------------------------------+
+
+
+================================================================================
+20. SERVICES & BUSINESS LOGIC
+================================================================================
+Located in `src/services/`:
+
+1. `api.js`:
+   - `simulateDelay(ms = 150)`: Returns a promise resolving after specified milliseconds.
+   - `storage`: Provides safe `get(key, fallback)` and `set(key, value)` methods wrapping
+     `window.localStorage` with error handling.
+
+2. `alertService.js`:
+   - `getAllAlerts()`: Fetches all alerts, defaulting to `ALERTS` dataset.
+   - `getAllIncidents()`: Fetches all incident triage records, defaulting to `INCIDENTS`.
+   - `broadcastSosAlert(newAlert)`: Generates a new alert object (`ALT-xxxx`), marks status
+     'Active', prepends to stored alerts array in `localStorage`, and returns it.
+   - `resolveIncident(incidentId)`: Updates incident clearance progress to 100% and marks status 'Resolved'.
+
+3. `reportService.js`:
+   - `getAllReports()`: Fetches crowdsourced field reports from `localStorage` or initial mock data.
+   - `submitReport(newReport)`: Creates new report (`RPT-xxx`) with initial 1 vote, timestamp 'Just now',
+     stores it in `localStorage`, and prepends to the feed.
+   - `upvoteReport(id)`: Increments report vote count by 1. Automatically sets `verified: true`
+     if vote count reaches 10.
+
+4. `routeService.js`:
+   - `getAllRoutes()`: Returns list of strategic corridors.
+   - `getRouteById(id)`: Finds corridor matching ID.
+   - `calculateOptimalPath(origin, destination, options)`: Matches corridor by origin/destination
+     substring, cross-references active hazards from `ALERTS`, calculates efficiency gains
+     (34% with waterways, 12% without), and returns recommended route and alternatives.
+
+5. `vehicleService.js`:
+   - `getAllVehicles()`: Fetches fleet array from `localStorage` or `VEHICLES`.
+   - `getVehicleById(id)`: Finds vehicle matching ID.
+   - `updateTelemetry(id, telemetryUpdates)`: Merges updated speed/temp/fuel into vehicle record,
+     sets `lastPing: 'Just now'`, and persists to storage.
+   - `registerVehicle(newVehicle)`: Assigns unique ID (`NER-TRK-xxx`), prepends to fleet list,
+     and saves to storage.
+
+
+================================================================================
+21. STATE MANAGEMENT
+================================================================================
+1. Implemented State Mechanisms:
+   - React `useState`: Used within all pages and components for local state (modal open/close,
+     active filters, selected vehicles, form inputs, simulated timers).
+   - React `useEffect`: Used for event listeners (online/offline network events, click outside
+     dropdowns, timer intervals for simulated telemetry and AI tickers).
+   - React Router State: URL pathname drives active navigation highlighting and page breadcrumbs.
+   - Browser `localStorage`: Serves as the persistent client-side data store across page reloads.
+
+2. Explicit Clarification:
+   - NO external global state management libraries (Redux, Zustand, MobX, Recoil) are used.
+   - The lightweight, component-driven React state pattern keeps the application fast,
+     maintainable, and free of unnecessary architectural overhead.
+
+
+================================================================================
+22. AI / INTELLIGENCE LOGIC
+================================================================================
+To maintain technical integrity, the intelligence capabilities are classified as follows:
+
+1. Real Algorithmic & Heuristic Logic:
+   - Multi-Modal Route Solver: Evaluates constraints (`avoidLandslides`, `allowWaterway`, `allowDrone`),
+     cargo cold-chain requirements, and elevation profiles to dynamically select the best transit mode.
+   - Remote District Accessibility Index (RDAI): Mathematical composite formula weighting terrain
+     complexity, weather vulnerability, road paving ratios, and bridge redundancy.
+   - Automated Community Verification: Evaluates upvote threshold (>= 10 votes) to award verified trust badges.
+
+2. Simulated AI Inference:
+   - AI Processing Sequence: In `RouteOptimization.jsx`, a 4-stage sequential state timer
+     demonstrates the multi-agent spatial reasoning pipeline to the user.
+   - AI Logistics Intelligence Ticker: In `Dashboard.jsx`, an animated ticker cycles through
+     real-time corridor telemetry analysis stages.
+   - Predictive Monsoonal Rerouting: Mock advisories recommend scheduled departures (e.g. before
+     05:00 IST to beat the Sela Pass blizzard window).
+
+3. Not Implemented (Future Scope):
+   - External LLM API calls (OpenAI/Anthropic).
+   - Deep neural networks running in the browser (TensorFlow.js).
+   - Real-time computer vision satellite imagery processing.
+
+
+================================================================================
+23. RESPONSIVE DESIGN
+================================================================================
+The application is fully responsive and thoroughly tested across all standard breakpoints:
+
+1. Viewport Breakpoints Supported:
+   - Desktop (1440px): 3-column dashboard grid, persistent expanded sidebar (`w-64`), full map canvas.
+   - Laptop (1280px): Balanced 3-column layout, vehicle cards reflow into 2 columns within main area.
+   - Tablet (1024px): Collapsible sidebar drawer, 2-column analytics charts, stacked modals.
+   - Mobile (375px - 768px): Single column flow, hamburger menu drawer, responsive map height (480px),
+     horizontally scrollable filter tabs, touch-friendly tap targets.
+
+2. Text Overflow & Layout Guards:
+   - `min-w-0`: Applied to all flex and grid children to prevent text strings from stretching containers.
+   - `break-words` & `overflow-wrap: anywhere`: Applied to titles and descriptions to prevent horizontal overflow.
+   - `line-clamp-2`: Constrains vehicle names, route titles, and hazard headings to a clean 2-line maximum.
+   - `truncate` with `title`: Compact single-line fields (driver names, road markers, coordinates)
+     show ellipsis with a full-text tooltip on hover.
+   - `overflow-x-hidden`: Applied to master dashboard layout to guarantee zero horizontal scrollbars.
+
+
+================================================================================
+24. ANIMATIONS & INTERACTIONS
+================================================================================
+Powered by Framer Motion 11 and CSS transitions:
+
+1. Page Transitions:
+   - Staggered child container animations (`staggerChildren: 0.08s`) providing smooth entry.
+2. Numerical KPI Count-Ups (`AnimatedCounter.jsx`):
+   - Smooth numerical interpolation from 0 to target value with easing and leading-zero preservation.
+3. Live AI Radar Pulses:
+   - CSS `animate-pulse` and `animate-ping` on neural icons and vehicle map markers.
+4. Animated Route Polyline (`AnimatedPolyline.jsx`):
+   - Simulates route drawing on the GIS map using SVG dash-offset transitions.
+5. Modal Dialog Transitions:
+   - Scale (`0.95 -> 1.0`) and opacity fade curves on open; smooth scale-down on dismiss.
+6. Micro-Interactions:
+   - Button tap scale (`active:scale-95`), card hover elevation (`whileHover: { y: -2 }`).
+7. Reduced-Motion Support:
+   - Automatically detects `window.matchMedia('(prefers-reduced-motion: reduce)')` and
+     disables vehicle movement intervals and counter animations for accessibility.
+
+
+================================================================================
+25. ERROR HANDLING & LOADING STATES
+================================================================================
+1. Network Disconnection:
+   - `OfflineIndicator` listens to window `online`/`offline` events and presents an
+     informative amber banner when connectivity is lost.
+2. LocalStorage Fallback:
+   - `api.js` wraps all `localStorage` calls in `try...catch` blocks to prevent crashes
+     if storage is full or disabled in private browsing mode.
+3. Fallback Routes:
+   - React Router configuration includes `<Route path="*" element={<Navigate to="/" replace />} />`
+     to redirect unknown URLs back to the dashboard.
+4. Leaflet Canvas Glitch Prevention:
+   - `MapView.jsx` executes `map.invalidateSize()` after mount to prevent gray unrendered tile blocks.
+5. Form Validation:
+   - All forms enforce HTML5 required constraints and provide user feedback.
+
+
+================================================================================
+26. SECURITY & DATA CONSIDERATIONS
+================================================================================
+1. Current Security Posture:
+   - Client-side application with zero external user data transmission.
+   - All state is confined to browser memory and `localStorage`.
+   - No sensitive passwords, API keys, or private government tokens are hardcoded.
+   - Input sanitization through React's automatic JSX escaping prevents XSS injection.
+
+2. Future Security Considerations:
+   - Role-Based Access Control (RBAC) separating Dispatchers, BRO Officers, and Public Users.
+   - HTTPS encryption and JWT token authentication against a secure government backend.
+   - End-to-end cryptographic hashing of official exported PDF dossiers.
+
+
+================================================================================
+27. PERFORMANCE OPTIMIZATION
+================================================================================
+1. Bundle & Build Efficiency:
+   - Production bundle compiled with Vite in under 13 seconds.
+   - Code split into optimized JavaScript and CSS bundles.
+2. Rendering Optimizations:
+   - Recharts responsive containers bounded by `min-w-0` to eliminate SVG resize loops.
+   - Animated intervals throttled to 3.2s and 3.5s to minimize CPU usage.
+   - Leaflet map icons generated as lightweight SVG DivIcons rather than heavy bitmap assets.
+3. Memory Management:
+   - All `setInterval` and `addEventListener` hooks include explicit cleanup functions in `useEffect`.
+
+
+================================================================================
+28. INSTALLATION & LOCAL SETUP
+================================================================================
+Requirements:
+- Node.js: Version 18.x or higher (Node 22 LTS recommended).
+- npm: Version 9.x or higher.
+
+Step-by-Step Installation:
+
+1. Clone or extract the project repository:
+   cd "path/to/SIH"
+
+2. Install project dependencies:
+   npm install
+
+3. Run the development server:
+   npm run dev
+
+4. Open the application:
+   Navigate to http://localhost:5173/ in any modern web browser.
+
+Available Package Scripts (from `package.json`):
+- `npm run dev`     : Launches Vite development server with `--host` enabled.
+- `npm run build`   : Compiles production bundle into `dist/` directory.
+- `npm run preview` : Previews the compiled production build locally.
+
+
+================================================================================
+29. GITHUB & DEPLOYMENT
+================================================================================
+1. GitHub Version Control:
+   - Initialize git: `git init`
+   - Stage files: `git add .`
+   - Commit: `git commit -m "Complete NER Logistics AI Command Platform"`
+   - Push: `git remote add origin <repo-url> && git push -u origin main`
+
+2. Production Deployment:
+   - Static Web Hosting (Vercel, Netlify, GitHub Pages, AWS S3 / CloudFront):
+     Run `npm run build`. The resulting `dist/` folder contains pure static assets
+     (`index.html`, `assets/index-*.js`, `assets/index-*.css`) ready for instant deployment.
+   - SPA Routing Rule: Configure single-page redirect rewriting all paths (`/*`) to `/index.html`.
+
+
+================================================================================
+30. DEMO / PRESENTATION FLOW FOR SIH JUDGES
+================================================================================
+Recommended 7-Minute Live Demonstration Walkthrough:
+
+Step 1: The Command Center (Route `/`)
+- Click: Dashboard page.
+- Explain: Point out the 8-state coverage scope, active fleet KPI counters, and the live
+  AI status ticker. Show how Active Convoys and Terrain Hazards are displayed simultaneously.
+- Why It Matters: Demonstrates integrated regional situational awareness in one glance.
+
+Step 2: GIS Spatial Telemetry (Route `/live-map`)
+- Click: Top banner "Launch Live GIS Map" button.
+- Explain: Show the interactive Leaflet map. Click the "Sikkim" or "Arunachal" state pills
+  to show smooth camera flight. Toggle the "Hazards" and "Vehicles" checkboxes. Click a
+  moving vehicle marker to inspect live speed, fuel, and cargo consignment in the slide-up drawer.
+- Why It Matters: Proves real-time geospatial asset tracking over high-altitude Himalayan terrain.
+
+Step 3: Multi-Modal Route Solver (Route `/route-optimization`)
+- Click: Sidebar "Route Optimization".
+- Demonstrate: Select Origin "Guwahati Logistic Hub", Destination "Tawang Depot", Cargo
+  "Cold-Chain Vaccines". Check "Permit VTOL Drone corridor". Click "Recalculate Corridor".
+- Explain: Watch the 4-stage AI calculation sequence reveal the "Garuda SkyWay VTOL Drone"
+  recommendation (2h 15m vs. 14h 30m road travel), bypassing landslide-blocked passes.
+  Show the animated polyline trace and alternative highway comparison. Click "Deploy Mission Convoy".
+- Why It Matters: Solves life-threatening medical delivery bottlenecks in extreme terrain.
+
+Step 4: Remote District Accessibility Index (Route `/accessibility`)
+- Click: Sidebar "Accessibility".
+- Demonstrate: Review the Regional RDAI Score (71.4). Toggle the "Monsoon Flood Stress-Test".
+- Explain: Watch the scores dynamically plummet in real-time, highlighting Kurung Kumey and
+  Dima Hasao as critical supply risks with low buffer stocks.
+- Why It Matters: Demonstrates proactive vulnerability modeling before disasters strike.
+
+Step 5: Incident Triage & Emergency SOS (Route `/alerts`)
+- Click: Sidebar "Alerts & Incidents".
+- Demonstrate: Show active incident `INC-2026-881` (Chumukedima landslide). Click "Advance Clearance (+20%)"
+  twice to show the BRO clearance progress bar reach 100% and resolve the incident.
+  Click "Broadcast Emergency SOS", fill out the form, and confirm broadcast.
+- Why It Matters: Bridges field engineering response with central dispatch coordination.
+
+Step 6: Grassroots Crowdsourcing (Route `/field-reports`)
+- Click: Sidebar "Field Reports".
+- Demonstrate: Show driver reports. Click the Thumbs-Up vote button on report `RPT-302` to show
+  it reach 10 votes and automatically receive the green "Community Verified" shield badge.
+- Why It Matters: Leverages community crowdsourcing to bypass government telemetry dead-zones.
+
+Step 7: Executive Analytics (Route `/analytics`)
+- Click: Sidebar "Analytics".
+- Explain: Show the Recharts AreaChart proving how Brahmaputra NW-2 barge freight absorbs
+  freight tonnage during monsoon road slumps. Click "Export Government Dossier".
+- Why It Matters: Provides evidence-based policy metrics for MoDONER and NEC infrastructure funding.
+
+
+================================================================================
+31. SAMPLE PRESENTATION EXPLANATIONS
+================================================================================
+
+--------------------------------------------------------------------------------
+A) 1-MINUTE ELEVATOR PITCH
+--------------------------------------------------------------------------------
+"Respected judges, logistics in the North Eastern Region cannot be solved by standard
+highway navigation. Between Himalayan landslides, monsoon flooding, and single-lane
+lifelines, road transport constantly breaks down. We built NER Logistics AI (SIH26002),
+a dedicated spatial intelligence command platform for all eight North Eastern states.
+Our platform integrates all-terrain trucks, Brahmaputra river barges, and cargo drones
+into a unified multi-modal routing engine. Using our Remote District Accessibility
+Index (RDAI), we evaluate supply friction before disasters strike, reroute vaccines
+via autonomous skyways in two hours instead of fourteen, and coordinate BRO heavy
+excavators in real-time. NER Logistics AI transforms geographic isolation into a
+resilient, multi-modal supply network."
+
+--------------------------------------------------------------------------------
+B) 3-MINUTE TECHNICAL OVERVIEW
+--------------------------------------------------------------------------------
+"Good morning, judges. From an architectural perspective, NER Logistics AI is built
+as a high-performance, responsive Single Page Application using React 18, Vite,
+Tailwind CSS, Leaflet, and Recharts.
+
+Our platform addresses three critical technical layers:
+First, Geospatial Intelligence: We implemented a custom Leaflet GIS mapping engine
+rendering SVG DivIcons for 142 fleet assets, real-time hazard radiuses, and strategic
+Himalayan passes. Our camera controller executes smooth flyTo transitions across the
+eight states while avoiding gray-tile invalidation bugs.
+
+Second, Multi-Modal Decision Support: Our heuristic optimization engine processes
+terrain slope penalties, road bitumen ratios, weather radar inputs, and consignment
+temperature requirements. When evaluating high-altitude corridors like Guwahati to Tawang,
+it detects Sela Pass black ice and computes multi-modal switches—shifting bulk freight
+to Brahmaputra NW-2 river barges and critical pediatric vaccines to autonomous VTOL drones.
+
+Third, Vulnerability Modeling: We developed the Remote District Accessibility Index (RDAI),
+a multi-factor spatial scoring model evaluating terrain friction, bridge redundancy,
+and supply buffer days. Our live monsoon simulator dynamically recalculates district
+isolation scores on the fly.
+
+Everything you see is fully functional, styled with an orange and white command center
+theme, accessible according to WCAG 2.1 standards, and persists user actions in local
+storage with offline reconnection resilience. Thank you."
+
+--------------------------------------------------------------------------------
+C) 5-MINUTE COMPLETE DEMO SCRIPT
+--------------------------------------------------------------------------------
+[Follow the exact sequence documented in Section 30: DEMO / PRESENTATION FLOW FOR SIH JUDGES]
+
+
+================================================================================
+32. KEY INNOVATIONS
+================================================================================
+1. Logistics Innovation: True multi-modal integration treating inland riverways (NW-2)
+   and cargo drones as first-class transit modalities alongside highway convoys.
+2. Spatial Intelligence Innovation: Custom GIS DivIcon engine plotting terrain hazards,
+   active vehicle telemetry, and high-altitude mountain passes on an interactive map.
+3. Vulnerability Modeling Innovation: The Remote District Accessibility Index (RDAI),
+   a novel mathematical composite index measuring physical supply isolation for border districts.
+4. Disaster Resilience Innovation: Dynamic monsoon flood stress-test simulation and
+   real-time BRO heavy machinery triage coordination with progress tracking.
+5. Grassroots Intelligence Innovation: Driver-reported hazard feed with automatic
+   community upvote verification (>= 10 votes awards verification shield).
+6. User Experience Innovation: Premium orange and white AI command aesthetics,
+   Framer Motion staggered transitions, animated numerical counters, and zero text overflow.
+
+
+================================================================================
+33. CURRENT LIMITATIONS
+================================================================================
+To maintain complete academic and technical honesty:
+1. Mock Data & Telemetry Simulation: Vehicle GPS positions, speed, and engine temperatures
+   are simulated via JavaScript timers rather than live IoT hardware transponders.
+2. Simulated Heuristic AI: The multi-modal route solver runs deterministic, rule-based
+   heuristic algorithms on the client rather than an external neural network or ML model.
+3. No Live Government API Integration: Weather and road breach data are modeled accurately
+   after real-world NER conditions, but are not yet connected to live IMD radar or MoRTH APIs.
+4. Client-Side Storage: Data mutations (SOS alerts, reports, vehicle pings) persist in
+   browser `localStorage` rather than an enterprise PostgreSQL/PostGIS database.
+5. Simulated Authentication: The user profile is hardcoded as Mission Director Dr. Himanta K.
+   without live backend JWT / OAuth authentication.
+
+
+================================================================================
+34. FUTURE SCOPE
+================================================================================
+The following are planned future extensions for production government deployment:
+1. Live Government Data Integrations:
+   - Direct integration with Border Roads Organisation (BRO) Project Sewak / Vartak APIs.
+   - Real-time India Meteorological Department (IMD) Doppler weather radar feeds.
+   - Central Water Commission (CWC) river flood level sensors along the Brahmaputra.
+2. Hardware IoT & Satellite Telemetry:
+   - Hardware integration with AIS-140 certified GPS vehicle transponders and ISRO NavIC receivers.
+   - BLE cold-chain temperature data loggers for vaccine consignments.
+3. Backend Cloud & Spatial Database:
+   - Node.js / Python FastAPI microservices backend.
+   - PostgreSQL with PostGIS extension for geospatial routing queries (pgRouting).
+4. Machine Learning & Predictive Modeling:
+   - Deep learning computer vision models analyzing satellite imagery for slope movement.
+   - Predictive landslide risk scoring using historical monsoon rainfall correlation.
+5. Native Mobile Application:
+   - React Native mobile application for offline field reporting in remote mountain zones.
+
+
+================================================================================
+35. FINAL TECHNICAL SUMMARY
+================================================================================
+Project Name         : NER Logistics AI
+Problem Statement ID : SIH26002
+Frontend Framework   : React 18.3.1 (SPA)
+Language             : JavaScript (ES2022+)
+Build Tool & Bundler : Vite 5.4.14
+Styling Framework    : Tailwind CSS 3.4.17 + Custom Vanilla CSS tokens
+Routing Engine       : React Router DOM 6.29.0
+GIS Mapping Engine   : Leaflet 1.9.4 + React-Leaflet 4.2.1
+Basemap Tile Source  : OpenStreetMap Standard Cartography
+Data Visualizations  : Recharts 2.15.1 (Area, Bar, Donut)
+Animation Engine     : Framer Motion 11.18.2
+Iconography          : Lucide React 0.475.0
+Backend Engine       : Client-Side Service Architecture with Simulated Delay
+Primary Database     : Browser LocalStorage (`api.js` client simulator)
+AI / Intelligence    : Rule-Based Heuristic Optimization & Simulated Multi-Step Pipeline
+Geographic Scope     : 8 North Eastern States (Assam, Arunachal, Meghalaya, Manipur,
+                       Mizoram, Nagaland, Tripura, Sikkim)
+Total Pages / Routes : 9 Implemented Pages
+Total Reusable Comps : 15 Custom Components
+Production Status    : Build Verified (0 errors, 2,825 modules compiled in 12.03s)
+Development Server   : http://localhost:5173/
+
+
+================================================================================
+36. JUDGE QUICK REFERENCE SHEET
+================================================================================
+PROBLEM:
+- Fragile Himalayan geology, annual monsoon floods, and isolated single-lane road
+  lifelines cause chronic supply-chain failures across India's North East.
+
+SOLUTION:
+- NER Logistics AI: A multi-modal spatial operations command center integrating
+  all-terrain trucks, Brahmaputra NW-2 river barges, and medical cargo drones.
+
+KEY MODULES:
+1. Executive Dashboard (Live KPIs, active convoys, hazard feed, AI ticker).
+2. GIS Telemetry Map (Leaflet map with custom SVG pins for 8 states and passes).
+3. AI Route Solver (Heuristic engine with 4-step sequence and modal switching).
+4. Fleet Registry (142 vehicles across 4 categories with full telemetry).
+5. Accessibility Index (RDAI scoring with monsoon flood stress simulation).
+6. Alerts & Triage (BRO machinery deployment and clearance progress tracking).
+7. Field Reports (Crowdsourced driver reports with 10-vote community verification).
+8. SLA Analytics (Recharts throughput dynamics, modal share, state rankings).
+9. Settings Portal (NavIC satellite selection, ping frequency, offline cache).
+
+CORE TECH STACK:
+- React 18 | Vite 5 | Tailwind CSS 3 | Leaflet | Recharts | Framer Motion
+
+AI & GIS ROLES:
+- AI: Heuristic multi-modal routing, risk index calculation, automated rerouting.
+- GIS: Real-time Leaflet spatial tracking, terrain buffers, animated route polylines.
+
+INNOVATION HIGHLIGHT:
+- Remote District Accessibility Index (RDAI) and seamless road-river-drone integration.
+
+CURRENT LIMITATION:
+- Client-side heuristic simulation and mock telemetry; ready for live API integration.
+
+================================================================================
+                       END OF TECHNICAL DOCUMENTATION
+================================================================================

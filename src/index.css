@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-orange: #F97316;
+    --dark-orange: #EA580C;
+    --light-orange: #FFF7ED;
+    --bg-soft: #F8FAFC;
+    --border-color: #E2E8F0;
+  }
+
+  body {
+    background-color: #F8FAFC;
+    color: #111827;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F97316;
+}
+
+/* Fix leaflet z-index underneath modals and sticky headers */
+.leaflet-pane {
+  z-index: 10 !important;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 20 !important;
+}
+
+/* Leaflet custom marker resets to prevent default div-icon border/box artifact */
+.custom-vehicle-marker,
+.custom-hazard-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+@layer utilities {
+  .outline-hidden {
+    outline: 2px solid transparent !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
